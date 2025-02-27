@@ -5,6 +5,4 @@
 #   message: `btrust-builders`
 #   signature: `H4xvHLiCvfuZZVWyHYYqVkwuf9TJHkUFFbB0lmOZFU0rKFOE+a6Zjkv7qm8qWn9ImftiDaEuWhzikYJoC4wqvhg=`
 
-echo 'H4xvHLiCvfuZZVWyHYYqVkwuf9TJHkUFFbB0lmOZFU0rKFOE+a6Zjkv7qm8qWn9ImftiDaEuWhzikYJoC4wqvhg=' > /tmp/sig.txt
-bitcoin-cli -regtest -rpcwallet=btrustwallet verifymessage musT1kFhLBhBYS2x7VseJWGvEXtTKQUMvm "btrust-builders" "$(cat /tmp/sig.txt)"
-rm /tmp/sig.txt
+bitcoin-cli -regtest -rpcwallet=btrustwallet verifymessage musT1kFhLBhBYS2x7VseJWGvEXtTKQUMvm "H4xvHLiCvfuZZVWyHYYqVkwuf9TJHkUFFbB0lmOZFU0rKFOE+a6Zjkv7qm8qWn9ImftiDaEuWhzikYJoC4wqvhg=" btrust-builders
