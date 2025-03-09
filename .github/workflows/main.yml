@@ -3,51 +3,22 @@ name: Btrust Builders Learn Bitcoin CLI Chapter 3 Exercises
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
-    paths:
-      - 'submission/*.sh'  # Only trigger when shell scripts in submission directory change
-      - 'main.yml'
+      - main # Trigger on pushes to the main branch
 
 jobs:
   test-bitcoin-cli-exercises:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest # Use the latest Ubuntu environment
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2  # Fetch the last 2 commits to compare changes
-
-      - name: Get changed files and check completed exercises
-        id: file-analysis
-        run: |
-          # Get changed files
-          CHANGED=$(git diff --name-only HEAD^ HEAD | grep '^submission/[0-9]\+\.sh$' | tr '\n' ' ')
-          echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
-          
-          # Function to check if file is completed (has more than just comments)
-          is_completed() {
-            grep -v '^#' "$1" | grep -q '[^[:space:]]'
-          }
-          
-          # Check each exercise file
-          for i in {1..9}; do
-            padded_num=$(printf "%02d" $i)
-            if is_completed "submission/${padded_num}.sh"; then
-              echo "ex${i}_completed=true" >> $GITHUB_OUTPUT
-            else
-              echo "ex${i}_completed=false" >> $GITHUB_OUTPUT
-            fi
-          done
+        uses: actions/checkout@v4 # Check out the repository code
 
       - name: Run Bitcoin Core setup script
-        if: steps.file-analysis.outputs.changed_files != ''
         run: |
           chmod +x .github/setup.sh
           .github/setup.sh
 
       - name: Start bitcoind in regtest mode
-        if: steps.file-analysis.outputs.changed_files != ''
         run: |
           bitcoind -regtest -daemon
           echo "Waiting for bitcoind to be ready..."
@@ -63,7 +34,6 @@ jobs:
           done
 
       - name: Verify Wallet Creation
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/01.sh') || steps.file-analysis.outputs.ex1_completed == 'true'
         run: |
           chmod +x submission/01.sh
           WALLET=$(submission/01.sh)
@@ -73,9 +43,8 @@ jobs:
             echo "Wallet creation failed!"
             exit 1
           fi
-  
+
       - name: Verify Wallet Balance Check
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/02.sh') || steps.file-analysis.outputs.ex2_completed == 'true'
         run: |
           chmod +x submission/02.sh
           BALANCE=$(submission/02.sh)
@@ -87,7 +56,6 @@ jobs:
           fi
 
       - name: Verify Legacy Address Generation
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/03.sh') || steps.file-analysis.outputs.ex3_completed == 'true'
         run: |
           chmod +x submission/03.sh
           LEGACY_ADDRESS=$(submission/03.sh)
@@ -100,7 +68,6 @@ jobs:
           fi
 
       - name: Verify P2SH Address Generation
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/04.sh') || steps.file-analysis.outputs.ex4_completed == 'true'
         run: |
           chmod +x submission/04.sh
           P2SH_ADDRESS=$(submission/04.sh)
@@ -113,7 +80,6 @@ jobs:
           fi
 
       - name: Verify Native SegWit Address Generation
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/05.sh') || steps.file-analysis.outputs.ex5_completed == 'true'
         run: |
           chmod +x submission/05.sh
           NATIVE_SEGWIT_ADDRESS=$(submission/05.sh)
@@ -126,7 +92,6 @@ jobs:
           fi
 
       - name: Verify Taproot Address Generation
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/06.sh') || steps.file-analysis.outputs.ex6_completed == 'true'
         run: |
           chmod +x submission/06.sh
           TAPROOT_ADDRESS=$(submission/06.sh)
@@ -139,7 +104,6 @@ jobs:
           fi
 
       - name: Verify Address Validation
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/07.sh') || steps.file-analysis.outputs.ex7_completed == 'true'
         run: |
           chmod +x submission/07.sh
           VALID=$(submission/07.sh)
@@ -151,7 +115,6 @@ jobs:
           fi
 
       - name: Verify Message Signature
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/08.sh') || steps.file-analysis.outputs.ex8_completed == 'true'
         run: |
           chmod +x submission/08.sh
           VALID=$(submission/08.sh)
@@ -163,7 +126,6 @@ jobs:
           fi
 
       - name: Verify Taproot Address Using Descriptors
-        if: contains(steps.file-analysis.outputs.changed_files, 'submission/09.sh') || steps.file-analysis.outputs.ex9_completed == 'true'
         run: |
           chmod +x submission/09.sh
           ACTUAL_OUTPUT=$(submission/09.sh)
@@ -174,4 +136,4 @@ jobs:
             echo "Taproot address verification failed!"
             exit 1
           fi
-            
+
