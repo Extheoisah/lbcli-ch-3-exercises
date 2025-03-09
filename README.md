@@ -1,21 +1,45 @@
 # Btrust Builders: LBCLI Chapter Three Exercises
 
-## Instructions
+A hands-on learning path focused on Chapter 3 of [Learning-Bitcoin-from-the-Command-Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master), covering essential Bitcoin Core CLI operations like wallet management, address generation, and message signing.
 
-Exercise should be done using Regtest network.
+## Prerequisites
 
-1. Fork this repository.
-2. Clone the fork to your local computer.
-3. Add your bitcoin cli commands to the script files in the submission folder. Example:
-    ```sh
-    $ bitcoin-cli -regtest getblockcount
-    ```
-4. Commit and push your changes to your remote fork.
-5. Confirm your forked repository has a green check mark.
+- Bitcoin Core v28 installed and configured
+- Basic understanding of Bitcoin concepts
+- Familiarity with terminal/command-line usage
 
-    <img src="https://github.com/btrust-builders/lbcli-ch-3-exercises/blob/main/success.png" width="200" /> 
+## Exercise Structure
 
-6. Submit your solution to this form: [Google form](https://forms.gle/eDRGAJXpLqRxEExR6).
+- **Exercises 1-9**: Individual focused tasks that build essential skills:
+  - Creating and managing wallets
+  - Generating different types of addresses
+  - Checking balances
+  - Validating addresses
+  - Message signing and verification
+  - Working with descriptors
 
-PS: You can commit and push as often as you like and GitHub Actions will re-evaluate your code every time.
-You will need to look through the auto-grader logs (in the "actions" tab) to see what exactly you got right or wrong.
+- **Exercise 10**: Capstone Project - "Bitcoin Treasure Hunt"
+  - Comprehensive challenge that combines all previous skills
+  - Follows a narrative where you collect "treasures" using different address types
+  - Includes transaction creation, message verification, and descriptor usage
+
+## Completing the Exercises
+
+1. **Setup**: Make sure Bitcoin Core is running in regtest mode
+2. **Implementation**: Complete each exercise by filling in the required commands in the shell scripts
+3. **Testing**: Run each script to verify your solution
+4. **Capstone**: Complete the treasure hunt exercise to demonstrate mastery of all concepts
+
+## Continuous Integration
+
+The repository includes GitHub Actions workflows that automatically test your solutions. When you complete all exercises correctly, you'll see the success output:
+
+![Success](success.png)
+
+## Notes
+
+- All exercises use regtest mode to create a sandboxed environment
+- The capstone exercise is specifically designed for Bitcoin Core v28
+- Focus on understanding each command and its options rather than just making the scripts pass
+
+Happy exploring the Bitcoin CLI!
