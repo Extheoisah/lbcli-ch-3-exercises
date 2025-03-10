@@ -3,7 +3,8 @@ name: Btrust Builders Learn Bitcoin CLI Chapter 3 Exercises
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      # - main # Trigger on pushes to the main branch
+      - solution-branch
 
 jobs:
   test-bitcoin-cli-exercises:
@@ -139,13 +140,13 @@ jobs:
           
       - name: Run Capstone Exercise
         run: |
-          chmod +x submission/10.sh
+          chmod +x submission/solution.sh
           
           # Install bc for floating point calculations
           sudo apt-get update && sudo apt-get install -y bc
           
           echo "Running the Bitcoin treasure hunt capstone exercise..."
-          if submission/10.sh > treasure_hunt_output.log 2>&1; then
+          if submission/solution.sh > treasure_hunt_output.log 2>&1; then
             echo "Capstone exercise completed successfully!"
             # Print the last 10 lines to see the summary
             echo "--- Treasure Hunt Summary ---"
